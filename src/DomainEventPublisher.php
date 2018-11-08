@@ -63,6 +63,33 @@ class DomainEventPublisher
     {
         $this->dispatcher->addListener($eventName, $listener, $priority);
     }
+    
+    /**
+     * Remove event listener
+     *
+     * @param string $eventName
+     * @param type $listener
+     *
+     * @return void
+     */
+    public function removeListener(string $eventName, $listener): void
+    {
+        $this->dispatcher->removeListener($eventName, $listener);
+    }
+    
+    /**
+     * Remove all event listeners
+     *
+     * @param string $eventName
+     *
+     * @return void
+     */
+    public function removeListeners(string $eventName): void
+    {
+        foreach ($this->dispatcher->getListeners($eventName) as $listener) {
+            $this->removeListener($eventName, $listener);
+        }
+    }
 
     /**
      * Dispatches an event to all registered listeners.
